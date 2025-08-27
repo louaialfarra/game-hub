@@ -10,7 +10,9 @@ const GameScore = ({ score }: Props) => {
 
   return (
     <>
-      <Badge bg={bgColor}>{score ?? 0}</Badge>
+      <Badge bg={bgColor} color={"gray.100"}>
+        {score ?? 0}
+      </Badge>
     </>
   );
 };
