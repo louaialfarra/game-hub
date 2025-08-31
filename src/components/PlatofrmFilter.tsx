@@ -23,7 +23,7 @@ const PlatformFilter = ({ onSelectedPlatform, selectedPlatform }: Props) => {
         <Portal>
           <Menu.Positioner>
             <Menu.Content>
-              {data.map((p) => (
+              {data?.map((p) => (
                 <Menu.Item
                   value={p.name}
                   key={p.id}

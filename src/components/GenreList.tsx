@@ -15,7 +15,7 @@ const GenreList = ({ selectedGenre }: Props) => {
           <Spinner boxSize={"70px"} />
         </p>
       )}
-      {data.map((g) => (
+      {data?.map((g) => (
         <HStack gap={"12px"} marginBottom={"8px"} key={g.id}>
           <Link onClick={() => selectedGenre(g)}>
             <List.Item key={g.id}>
