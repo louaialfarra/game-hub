@@ -4,11 +4,13 @@ import { BiChevronDown } from "react-icons/bi";
 
 interface Props {
   onSelectedPlatform: (platparam: Platforms) => void;
-  selectedPlatform: Platforms | null;
+  selectedPlatform: number | null;
 }
 
 const PlatformFilter = ({ onSelectedPlatform, selectedPlatform }: Props) => {
   const { data, error } = usePlatform();
+
+  const platformName = data.results.find((p) => p.id === selectedPlatform);
   if (error) return;
 
   return (
@@ -16,7 +18,7 @@ const PlatformFilter = ({ onSelectedPlatform, selectedPlatform }: Props) => {
       <Menu.Root>
         <Menu.Trigger asChild>
           <Button variant={"outline"}>
-            {selectedPlatform?.name || "Platform"}
+            {platformName?.name || "Platform"}
             <BiChevronDown />
           </Button>
         </Menu.Trigger>
