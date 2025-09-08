@@ -1,12 +1,11 @@
+import useStoreGame from "@/state-managment/store";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BiChevronDown } from "react-icons/bi";
 
-interface Props {
-  Onsort: (sortParams: string) => void;
-  selectedSort: string;
-}
+const Sort = () => {
+  const setSort = useStoreGame((s) => s.setSort);
+  const sortOrder = useStoreGame((s) => s.gameQuery.sort);
 
-const Sort = ({ Onsort, selectedSort }: Props) => {
   const sort = [
     { value: "name", label: "By Name" },
     { value: "-released", label: "By Released" },
@@ -15,7 +14,7 @@ const Sort = ({ Onsort, selectedSort }: Props) => {
     { value: "updated", label: "By Updated" },
     { value: "-metacritic", label: "By Meta" },
   ];
-  const Sorting = sort.find((s) => s.value === selectedSort);
+  const Sorting = sort.find((s) => s.value === sortOrder);
 
   return (
     <Menu.Root>
@@ -32,7 +31,7 @@ const Sort = ({ Onsort, selectedSort }: Props) => {
               <Menu.Item
                 key={s.value}
                 value={s.value}
-                onClick={() => Onsort(s.value)}
+                onClick={() => setSort(s.value)}
               >
                 {s.label}
               </Menu.Item>

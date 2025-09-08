@@ -1,4 +1,5 @@
-import useGenre, { type Genre } from "@/hooks/useGenre";
+import useGenre from "@/hooks/useGenre";
+import useStoreGame from "@/state-managment/store";
 import {
   Button,
   HStack,
@@ -9,12 +10,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-interface Props {
-  selectedGenre: (genreParam: Genre) => void;
-  selectedGenreText: number | null;
-}
+const GenreList = () => {
+  const setGenreid = useStoreGame((s) => s.setGenreid);
+  const genreId = useStoreGame((s) => s.gameQuery.genreId);
 
-const GenreList = ({ selectedGenre, selectedGenreText }: Props) => {
   const { data, isLoading } = useGenre();
 
   return (
@@ -26,7 +25,7 @@ const GenreList = ({ selectedGenre, selectedGenreText }: Props) => {
       )}
       {data?.results.map((g) => (
         <HStack gap={"12px"} marginBottom={"8px"} key={g.id}>
-          <Link onClick={() => selectedGenre(g)}>
+          <Link onClick={() => setGenreid(g.id)}>
             <List.Item key={g.id}>
               <Image
                 src={g.image_background}
@@ -34,9 +33,7 @@ const GenreList = ({ selectedGenre, selectedGenreText }: Props) => {
                 borderRadius={"8px"}
               />
               <Button variant={"plain"}>
-                <Text
-                  fontWeight={selectedGenreText === g.id ? "bold" : "normal"}
-                >
+                <Text fontWeight={genreId === g.id ? "bold" : "normal"}>
                   {g.name}
                 </Text>
               </Button>

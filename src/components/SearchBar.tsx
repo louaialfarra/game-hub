@@ -1,18 +1,17 @@
+import useStoreGame from "@/state-managment/store";
 import { Input, InputGroup } from "@chakra-ui/react";
 import { useRef } from "react";
 import { BiSearch } from "react-icons/bi";
 
-interface Props {
-  onSearch: (searcParam: string) => void;
-}
+const SearchBar = () => {
+  const setSearchtext = useStoreGame((s) => s.setSearchtext);
 
-const SearchBar = ({ onSearch }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        if (ref.current) onSearch(ref.current.value);
+        if (ref.current) setSearchtext(ref.current.value);
       }}
     >
       <InputGroup startElement={<BiSearch />}>

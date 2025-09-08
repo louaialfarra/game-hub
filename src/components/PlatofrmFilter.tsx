@@ -1,16 +1,15 @@
-import usePlatform, { type Platforms } from "@/hooks/usePlatform";
+import usePlatform from "@/hooks/usePlatform";
+import useStoreGame from "@/state-managment/store";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BiChevronDown } from "react-icons/bi";
 
-interface Props {
-  onSelectedPlatform: (platparam: Platforms) => void;
-  selectedPlatform: number | null;
-}
+const PlatformFilter = () => {
+  const setPlatformId = useStoreGame((s) => s.setPlatformId);
+  const platformId = useStoreGame((s) => s.gameQuery.platformId);
 
-const PlatformFilter = ({ onSelectedPlatform, selectedPlatform }: Props) => {
   const { data, error } = usePlatform();
 
-  const platformName = data.results.find((p) => p.id === selectedPlatform);
+  const platformName = data.results.find((p) => p.id === platformId);
   if (error) return;
 
   return (
@@ -29,7 +28,7 @@ const PlatformFilter = ({ onSelectedPlatform, selectedPlatform }: Props) => {
                 <Menu.Item
                   value={p.name}
                   key={p.id}
-                  onClick={() => onSelectedPlatform(p)}
+                  onClick={() => setPlatformId(p.id)}
                 >
                   {p.name}
                 </Menu.Item>
