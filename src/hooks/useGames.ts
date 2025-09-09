@@ -10,6 +10,7 @@ export interface Game {
   parent_platforms: { platform: Platforms }[];
   metacritic: number;
   slug: string;
+  description_raw: string;
 }
 const apiClient = new ApiClient<Game>("/games");
 

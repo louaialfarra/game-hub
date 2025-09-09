@@ -1,20 +1,20 @@
-import useGames from "@/hooks/useGames";
+import ExpandableText from "@/components/ExpandableText";
+import useGameDetail from "@/hooks/useGameDetail";
+import { Heading, Spinner } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 const GameDetail = () => {
-  const { slug: gameSlug } = useParams();
+  const { slug } = useParams();
 
-  const { data } = useGames();
+  const { data, error, isLoading } = useGameDetail(slug!);
+  if (isLoading) return <Spinner size={"xl"} />;
 
-  const game = data?.pages
-    .flatMap((p) => p.results)
-    .find((game) => game.slug === gameSlug);
+  if (error || !data) throw error;
 
   return (
     <>
-      <h1>
-        game detail {game?.name} {gameSlug}
-      </h1>
+      <Heading>{data.name}</Heading>
+      <ExpandableText>{data.description_raw}</ExpandableText>
     </>
   );
 };
