@@ -11,12 +11,13 @@ const ExpandableText = ({ children }: Props) => {
 
   if (children.length < limit) return <Text>{children}</Text>;
 
-  const Summary = expanded ? children : children.substring(0, 200);
+  const Summary = expanded ? children : children.substring(0, 200) + "...";
 
   return (
     <Text>
       {Summary}
       <Button
+        marginX={3}
         colorPalette={"yellow"}
         size={"xs"}
         onClick={() => setExpanded(!expanded)}

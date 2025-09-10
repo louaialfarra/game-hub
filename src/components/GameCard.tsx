@@ -19,7 +19,13 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   const navigate = useNavigate();
   return (
-    <Box onClick={() => navigate(`games/${game.slug}`)}>
+    <Box
+      onClick={() => navigate(`games/${game.slug}`)}
+      _hover={{
+        transform: "scale(1.03)",
+        transition: "transform 0.15s ease-in",
+      }}
+    >
       <CardRoot
         borderRadius={"10px"}
         overflow={"hidden"}
